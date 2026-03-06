@@ -1,10 +1,9 @@
-package com.example.dollar_room_am.Modelo
+package com.example.dollar_room_am.Modelo.Local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-@Entity ( tableName = "dollar_transactions")
+@Entity( tableName = "dollar_transactions")
 data class DollarTrasanction (
 
     @PrimaryKey(autoGenerate = true)

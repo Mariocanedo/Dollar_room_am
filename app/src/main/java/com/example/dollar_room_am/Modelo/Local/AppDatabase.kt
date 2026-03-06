@@ -1,12 +1,10 @@
-package com.example.dollar_room_am.Modelo
+package com.example.dollar_room_am.Modelo.Local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
-
-
+import com.example.dollar_room_am.Modelo.Local.DollarTrasanction
 
 @Database(
     entities = [DollarTrasanction::class],
@@ -43,8 +41,3 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
-
-
-
-
-
