@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.dollar_room_am.Modelo.Local.AppDatabase
 import com.example.dollar_room_am.Modelo.TransactionRepository
 import com.example.dollar_room_am.R
 import com.example.dollar_room_am.ViewModel.TransactionViewModel
@@ -46,7 +49,34 @@ class FirstFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+// Inicializamos Repository usando la instancia singleton de AppDatabase
+        repository = TransactionRepository(AppDatabase.getDatabase(requireContext()).dollarTransactionDao())
+        // configuraciones del rv
+        binding.transactionRecyclerView.layoutManager= LinearLayoutManager( requireContext())
+        binding.transactionRecyclerView.adapter = adapter
+
+
+
+        // observamos los cambios en liveData  desde transacciones
+
+        viewModel.transactions.observe(viewLifecycleOwner){
+
+            list ->
+
+            adapter.submitList(list)
+        }
+
+        viewModel.loadTransactions()
+
+
+        // btn comprar
+
+        binding.buyButton.setOnClickListener {handleTransaction("BUY") }
+
+        // Bton vender
+
+        binding.sellButton.setOnClickListener { handleTransaction("SELL") }
+
 
     }
 
